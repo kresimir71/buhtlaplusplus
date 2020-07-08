@@ -1,0 +1,60 @@
+* Introduction
+
+This is further elaboration of the project 
+
+[[https://github.com/kresimir71/buhtla][https://github.com/kresimir71/buhtla]]
+
+Explanations already given there will not be repeated here. That means
+also that prolog part will remain uncommented.  The difference and the
+added value is that here part of the prolog program has been replaced
+by C++.
+
+** [[./Makefile][Makefile]]
+
+It is certain that you will have to adjust ~Makefile~ to indicate the
+correct place for ~gprolog.h~.
+
+In my case it is this one:
+
+~-I/usr/local/gprolog-1.4.5/include~
+
+To get it working proceed as follows:
+
+#+BEGIN_SRC
+make
+
+#test
+. test.sh
+
+#another test
+./buhtla <testinput2
+#+END_SRC
+
+*** If ~make~ does not work   
+
+You can also compile it directly.
+Be warned that it is certain that you will have to adjust ~-I/usr/local/gprolog-1.4.5/include~ .
+Fortunately, ~gplc~ can find the library files without our intervention.
+
+#+BEGIN_SRC
+gplc  -c  buhtla.pl
+g++ -std=c++14 -I/usr/local/gprolog-1.4.5/include -c -o driver.o driver.cpp
+gplc --linker g++ driver.o buhtla.o -o buhtla
+#+END_SRC
+
+and test it with:
+
+#+BEGIN_SRC
+#test
+. test.sh
+
+#another test
+./buhtla <testinput2
+#+END_SRC
+
+** [[./driver.md][driver.cpp]]
+
+** [[./buhtla.pl][buhtla.pl]]
+
+This file was described in detail in [[https://github.com/kresimir71/buhtla][https://github.com/kresimir71/buhtla]]
+

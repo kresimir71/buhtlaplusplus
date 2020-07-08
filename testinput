@@ -1,0 +1,13 @@
+
+gram [
+
+           /* rule is a list of alternatives */
+
+	         rule root :: [
+		      	  /* alternative is a list of terminal and nonterminal symbols and semantic actions, where ^* means none or more, ^+ means one or more, and ? means none or one */
+			  alt [ nont next, [tok tok_one,  tok tok_comma]^*,  [tok tok_two, tok tok_comma]^+ , [tok tok_three, tok tok_comma]? ,[tok tok_four]^+, tok tok_seven, act '{$1=\'123\';}' ],
+			  alt [ [ tok tok_eight, tok tok_comma]^*, tok tok_eight]
+		      ],
+		 rule next :: [ alt [ [tok tok_five] ^* , [tok tok_six] ?] ]
+].
+											     

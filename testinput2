@@ -1,0 +1,1 @@
+gram [    rule next :: [ alt [ [tok tok_five]^*  ] ] 	  ].
