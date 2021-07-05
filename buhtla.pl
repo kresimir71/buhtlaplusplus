@@ -110,7 +110,7 @@ simplifyAlternativeTerm( X?, _,
                        ) :-
     !
     ,append( CurrentOutput, RestInput, AdditionalAlt )
-    ,( is_list1( X) -> L=X ; L=[X] )
+    ,( is_list1( X) -> L=X ; L=[X] ) % maybe here better just L=X ?
     ,!.
 
 simplifyAlternativeTerm( X, _,

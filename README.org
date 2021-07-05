@@ -58,3 +58,37 @@ and test it with:
 
 This file was described in detail in [[https://github.com/kresimir71/buhtla][https://github.com/kresimir71/buhtla]]
 
+** mapStacks
+
+A utility implemented in C++
+
+#+BEGIN_EXAMPLE
+
+             mapStacks
+              input: Input list, some external context data, a 'process' function
+              output: three lists Output1, Output2, Output3
+
+          the whole Output1 list as feedback
+     ┌───────────────────────────────────────────┐        ┌─ some external context
+     │     Output1                               │        │   
+     └──  ┌┐ ┌┐ ┌┐ ┌┐ ┌┐    (push)               │        │   
+          └┘ └┘ └┘ └┘ └┘ ◄────────────┐          │        │         
+                                      │          ▼        ▼ 
+           Output2                    │  ┌──────────────────────┐
+          ┌┐ ┌┐ ┌┐ ┌┐ ┌┐              └──┤                      │ (pop) head and tail         Input
+          └┘ └┘ └┘ └┘ └┘ ◄─────┐(push)   │     'process'        │◄────────────────────  ┌┐ ┌┐ ┌┐ ┌┐ ┌┐
+                               └─────────┤                      │                       └┘ └┘ └┘ └┘ └┘
+           output3                       └──┬────────┬──────────┘                     ▲
+           ┌┐ ┌┐ ┌┐ ┌┐ ┌┐      (push)       │        │                                │
+           └┘ └┘ └┘ └┘ └┘ ◄─────────────────┘        │                                │
+                                                     │      some feedback pushed      │
+                                                     └────────────────────────────────┘
+
+          Note: Output1, Output2, Output3 are beeing extended at the end of the list
+
+          Description: - on each iteration, 'process' gets the head and tail of Input
+	               - on each iteration, 'process' gets also the whole current Output1
+		       - on each iteration, 'process' extends Input at the head of list
+		       - some external context is present as additional input of 'process'
+
+#+END_EXAMPLE

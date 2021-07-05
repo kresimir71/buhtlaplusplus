@@ -1,14 +1,15 @@
 
 # Table of Contents
 
-1.  [Introduction](#orgf76cab8)
-    1.  [Makefile](#org92d8253)
-        1.  [If `make` does not work](#orgae0fdb8)
-    2.  [driver.cpp](#orgd1fd57c)
-    3.  [buhtla.pl](#orgf25db9b)
+1.  [Introduction](#org4e08572)
+    1.  [Makefile](#org515bdff)
+        1.  [If `make` does not work](#org24b22bf)
+    2.  [driver.cpp](#orgafb4a15)
+    3.  [buhtla.pl](#org57c0b99)
+    4.  [mapStacks](#org2856199)
 
 
-<a id="orgf76cab8"></a>
+<a id="org4e08572"></a>
 
 # Introduction
 
@@ -22,7 +23,7 @@ added value is that here part of the prolog program has been replaced
 by C++.
 
 
-<a id="org92d8253"></a>
+<a id="org515bdff"></a>
 
 ## [Makefile](./Makefile)
 
@@ -44,7 +45,7 @@ To get it working proceed as follows:
     ./buhtla <testinput2
 
 
-<a id="orgae0fdb8"></a>
+<a id="org24b22bf"></a>
 
 ### If `make` does not work
 
@@ -65,14 +66,49 @@ and test it with:
     ./buhtla <testinput2
 
 
-<a id="orgd1fd57c"></a>
+<a id="orgafb4a15"></a>
 
 ## [driver.cpp](./driver.md)
 
 
-<a id="orgf25db9b"></a>
+<a id="org57c0b99"></a>
 
 ## [buhtla.pl](./buhtla.pl)
 
 This file was described in detail in [https://github.com/kresimir71/buhtla](https://github.com/kresimir71/buhtla)
+
+
+<a id="org2856199"></a>
+
+## mapStacks
+
+A utility implemented in C++
+
+    
+            mapStacks
+             input: Input list, some external context data, a 'process' function
+             output: three lists Output1, Output2, Output3
+    
+         the whole Output1 list as feedback
+    ┌───────────────────────────────────────────┐        ┌─ some external context
+    │     Output1                               │        │   
+    └──  ┌┐ ┌┐ ┌┐ ┌┐ ┌┐    (push)               │        │   
+         └┘ └┘ └┘ └┘ └┘ ◄────────────┐          │        │         
+                                     │          ▼        ▼ 
+          Output2                    │  ┌──────────────────────┐
+         ┌┐ ┌┐ ┌┐ ┌┐ ┌┐              └──┤                      │ (pop) head and tail         Input
+         └┘ └┘ └┘ └┘ └┘ ◄─────┐(push)   │     'process'        │◄────────────────────  ┌┐ ┌┐ ┌┐ ┌┐ ┌┐
+                              └─────────┤                      │                       └┘ └┘ └┘ └┘ └┘
+          output3                       └──┬────────┬──────────┘                     ▲
+          ┌┐ ┌┐ ┌┐ ┌┐ ┌┐      (push)       │        │                                │
+          └┘ └┘ └┘ └┘ └┘ ◄─────────────────┘        │                                │
+                                                    │      some feedback pushed      │
+                                                    └────────────────────────────────┘
+    
+         Note: Output1, Output2, Output3 are beeing extended at the end of the list
+    
+         Description: - on each iteration, 'process' gets the head and tail of Input
+    	          - on each iteration, 'process' gets also the whole current Output1
+    		  - on each iteration, 'process' extends Input at the head of list
+    		  - some external context is present as additional input of 'process'
 
